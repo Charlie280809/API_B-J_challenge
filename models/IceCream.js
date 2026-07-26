@@ -1,13 +1,51 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const IceCreamSchema = new mongoose.Schema({
-    taste: String,
-    toppings: String,
-    sauce: String,
-    user: String,
-    adress: String,
-    status: { type: String, default: 'pending' },
-    createdAt: { type: Date, default: Date.now }
-})
+const orderSchema = new mongoose.Schema(
+    {
+        // --- Klantgegevens ---
+        customerName: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        address: {
+            street: { type: String, required: true, trim: true },
+            houseNumber: { type: String, required: true, trim: true },
+            postalCode: { type: String, required: true, trim: true },
+            city: { type: String, required: true, trim: true }
+        },
 
-module.exports = mongoose.model('IceCream', IceCreamSchema)
+        // --- Configurator keuzes (geen referenties, gewoon tekst) ---
+        smaak: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        toppings: {
+            type: String,
+            default: []
+        },
+        saus: {
+            type: String,
+            default: "",
+            trim: true
+        },
+
+        // --- Prijs & status ---
+        totalPrice: {
+            type: Number,
+            required: true,
+            min: 0
+        },
+        status: {
+            type: String,
+            enum: ["te verwerken", "verzonden", "geannuleerd"],
+            default: "te verwerken"
+        }
+    },
+    {
+        timestamps: true
+    }
+);
+
+module.exports = mongoose.model("Order", orderSchema);

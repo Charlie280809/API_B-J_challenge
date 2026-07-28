@@ -39,8 +39,8 @@ const orderSchema = new mongoose.Schema(
         },
         status: {
             type: String,
-            enum: ["te verwerken", "verzonden", "geannuleerd"],
-            default: "te verwerken"
+            enum: ["Te verwerken", "Verzonden", "Geannuleerd"],
+            default: "Te verwerken"
         }
     },
     {

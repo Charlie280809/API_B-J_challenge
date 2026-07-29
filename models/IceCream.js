@@ -23,7 +23,7 @@ const orderSchema = new mongoose.Schema(
         },
         toppings: {
             type: String,
-            default: []
+            default: ""
         },
         saus: {
             type: String,

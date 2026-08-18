@@ -31,10 +31,9 @@ router.post('/', async (req, res) => {
             customerName: req.body.customerName,
             address: req.body.address,
             smaak: req.body.smaak,
-            // toppings: req.body.toppings || "",
-            // saus: req.body.saus || "",
+            toppings: req.body.toppings || "",
+            saus: req.body.saus || "",
             totalPrice: req.body.totalPrice,
-            // status: 'Te verwerken'
         });
         const saved = await order.save();
         res.status(201).json(saved);

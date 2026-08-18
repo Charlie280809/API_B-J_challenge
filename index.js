@@ -8,9 +8,7 @@ const authRouter = require('./routes/auth');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors({
-    origin: '*'
-}));
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 
 app.use('/api/login', authRouter);
@@ -23,17 +21,14 @@ if (!mongoUrl) {
     process.exit(1);
 }
 
-async function start() {
-    try {
-        await mongoose.connect(mongoUrl);
+mongoose.connect(mongoUrl)
+    .then(() => {
         console.log("Connected to MongoDB");
-
         app.listen(port, () => {
             console.log(`Server is running on port ${port}`);
         });
-    } catch (err) {
+    })
+    .catch(err => {
         console.error("Error connecting to MongoDB:", err);
         process.exit(1);
-    }
-}
-start();
+    });

@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 const Order = require('../models/IceCream');
 
 // GET alle bestellingen
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const orders = await Order.find();
         res.json(orders);
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET 1 bestelling
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
     try {
         const order = await Order.findById(req.params.id);
         if (!order) return res.status(404).json({ message: 'Bestelling niet gevonden' });
@@ -43,7 +44,7 @@ router.post('/', async (req, res) => {
 });
 
 // PATCH status bestelling
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', auth, async (req, res) => {
     try {
         const order = await Order.findById(req.params.id);
 
@@ -66,7 +67,7 @@ router.patch('/:id', async (req, res) => {
 });
 
 // DELETE bestelling
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
     try {
         const deletedOrder = await Order.findByIdAndDelete(req.params.id);
 

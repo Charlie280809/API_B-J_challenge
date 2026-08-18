@@ -45,17 +45,17 @@ router.post('/', async (req, res) => {
 // PATCH status bestelling
 router.patch('/:id', auth, async (req, res) => {
     try {
-        const order = await Order.findById(req.params.id);
+        const updatedOrder = await Order.findByIdAndUpdate(
+            req.params.id,
+            { status: req.body.status },
+            { new: true, runValidators: true }
+        );
 
-        if (!order) {
+        if (!updatedOrder) {
             return res.status(404).json({
                 message: 'Bestelling niet gevonden'
             });
         }
-
-        order.status = req.body.status;
-
-        const updatedOrder = await order.save();
 
         res.json(updatedOrder);
     } catch (err) {

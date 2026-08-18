@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema(
     {
-        // --- Klantgegevens ---
         customerName: {
             type: String,
             required: true,
@@ -14,8 +13,6 @@ const orderSchema = new mongoose.Schema(
             postalCode: { type: String, required: true, trim: true },
             city: { type: String, required: true, trim: true }
         },
-
-        // --- Configurator keuzes (geen referenties, gewoon tekst) ---
         smaak: {
             type: String,
             required: true,
@@ -30,8 +27,6 @@ const orderSchema = new mongoose.Schema(
             default: "",
             trim: true
         },
-
-        // --- Prijs & status ---
         totalPrice: {
             type: Number,
             required: true,
